@@ -1,3 +1,2 @@
 
-rootProject.name = "mini-proj-kotlin-sophie"
-
+rootProject.name = "miniprojeto"
