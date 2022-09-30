@@ -11,20 +11,23 @@ enum class TypeCollect() {
 }
 
 enum class TypeElectro(val type:String) {
-    video_game("VIDEO-GAMES"), game("JOGOS"), handheld("PORTATEIS"), other("OUTROS");
+    video_game("VIDEO-GAME"), game("JOGO"), handheld("PORTATEIS"), other("OUTROS");
 
     /**
-     * Method to return the enum based on its type
+     * Method to return the enum based on its [type] string value
      */
-    @JvmName("valueOf1")
-    fun valueOf(type:String) : TypeElectro {
-        for (value in TypeElectro.values()) {
-            if (type == value.type) {
-                return value
+
+    companion object {
+        fun valueByType(type:String) : TypeElectro {
+            for (value in TypeElectro.values()) {
+                if (type == value.type) {
+                    return value
+                }
             }
+            throw Exception("No electro type matches the given one")
         }
-        throw Exception("No electro type matches the given one")
     }
+
 }
 
 enum class Size() {
