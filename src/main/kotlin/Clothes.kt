@@ -1,3 +1,15 @@
+
+/**
+ * Class representation of the store Clothes Product,
+ * this class inherit the [Product] class
+ *
+ * @property type [TypeClothes] the clothes type
+ * @property size [Size] this clothes size
+ * @property color_primary this clothes color
+ * @property color_secundary this clothes secundary color, can be null
+ *
+ * @constructor Creates a Clothes with type, size, color_primary, color_secundary and the [Product] properties
+ */
 class Clothes constructor(val type:TypeClothes, val size:Size, val color_primary:String, val color_secundary:String?,
                           name:String, price_purchase:Float, price_sell:Float, quantity:Int, code:String) :
                           Product(name, price_purchase, price_sell, quantity, code, 'R') {

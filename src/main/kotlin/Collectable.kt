@@ -1,3 +1,15 @@
+
+/**
+ * Class representation of the store Collectable Product,
+ * this class inherit the [Product] class
+ *
+ * @property type [TypeCollect] the collectable type
+ * @property material [Material] this collectable material
+ * @property size this collectable size, can be null
+ * @property rarity [Rarity] this collectable rarity
+ *
+ * @constructor Creates a Collectable with type, size, material, rarity and the [Product] properties
+ */
 class Collectable constructor(val type:TypeCollect, val material:Material, val size:Float?, val rarity:Rarity,
                             name:String, price_purchase:Float, price_sell:Float, quantity:Int, code:String) :
                             Product(name, price_purchase, price_sell, quantity, code, 'C')  {
