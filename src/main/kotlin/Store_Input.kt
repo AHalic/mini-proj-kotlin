@@ -38,6 +38,11 @@ fun readFileCompras(file: File): MutableList<Any> {
 }
 
 
+/**
+ * Reads [file] with sold products and changes inventory quantities
+ *
+ * @return MutableList: inventory modified
+ */
 fun readFileVendas(file: File, inventory:MutableList<Any>) : MutableList<Any> {
     csvReader().open(file) {
         readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
