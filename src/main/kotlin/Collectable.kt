@@ -3,7 +3,7 @@ class Collectable constructor(val type:TypeCollect, val material:Material, val s
                             Product(name, price_purchase, price_sell, quantity, code, 'C')  {
 
     override fun toString(): String {
-        return "$code - Collectable called $name of type $type, size $size, material $material and rarity $rarity\n"
+        return "$code - Collectable ($quantity) called $name of type $type, size $size, material $material and rarity $rarity\n"
     }
 }
 

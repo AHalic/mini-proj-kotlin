@@ -5,7 +5,7 @@ class Electronic constructor (val type:TypeElectro, val version:Int, val year:ja
                             Product(name, price_purchase, price_sell, quantity, code, 'E') {
 
     override fun toString(): String {
-        return "$code - Electronic called $name of type $type, version $version, year $year\n"
+        return "$code - Electronic ($quantity) called $name of type $type, version $version, year $year\n"
     }
 }
 

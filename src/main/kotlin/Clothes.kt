@@ -4,7 +4,7 @@ class Clothes constructor(val type:TypeClothes, val size:Size, val color_primary
 
 
     override fun toString(): String {
-        return "$code - Clothes called $name of type $type, size $size, colors $color_primary and $color_secundary\n"
+        return "$code - Clothes ($quantity) called $name of type $type, size $size, colors $color_primary and $color_secundary\n"
     }
 }
 
