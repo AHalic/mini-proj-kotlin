@@ -1,4 +1,4 @@
-open class Product constructor (val name:String, val price_purchase:Float, val price_sell:Float, val quantity:Int) {
+open class Product constructor (var name:String, var price_purchase:Float, var price_sell:Float, var quantity:Int) {
     var code:String? = null
     private var category:Char? = null
 
@@ -7,5 +7,8 @@ open class Product constructor (val name:String, val price_purchase:Float, val p
         this.code = "$category-$code"
     }
 
+    open fun sell_product(quantity_sold: Int) {
+        this.quantity -= quantity_sold
+    }
 
 }
