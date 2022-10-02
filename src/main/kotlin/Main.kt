@@ -20,10 +20,18 @@ fun main(args: Array<String>){
     }
 
     var inventory = readFileCompras(compra_file)
-//    inventory.forEach{print(it)}
-//    println("VENDA")
     inventory = readFileVendas(venda_file, inventory)
-//    inventory.forEach{print(it)}
+
+    general_inventory(inventory, output_directory)
+    category_inventory(inventory, output_directory)
+    balance_sheet(inventory, output_directory)
+
+    val busca_file = File("$input_directory/busca.csv")
+    if (files.contains(busca_file)) {
+        val search_results = readFileBusca(busca_file, inventory)
+        products_search(search_results, output_directory)
+    }
+
 }
 
 
