@@ -44,4 +44,27 @@ open class Product constructor (var name:String, var price_purchase:Float, var p
         return Pair(this.bought, this.sold)
     }
 
+    /**
+     * Method that returns a [String] related to the [Product.category]
+     * - 'C' == "COLECIONAVEL"
+     * - 'R' == "ROUPA"
+     * - 'E' == "ELECTRONIC"
+     *
+     * @return String? as above relations
+     */
+    open fun charToCategory():String? {
+        when(this.category) {
+            'C' -> {
+                return "COLECIONAVEL"
+            }
+            'R' -> {
+                return "ROUPA"
+            }
+            'E' -> {
+                return "ELECTRONIC"
+            }
+        }
+        return null
+    }
+
 }
