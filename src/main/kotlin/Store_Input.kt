@@ -13,20 +13,23 @@ fun readFileCompras(file: File): MutableList<Any> {
 
 
     csvReader().open(file) {
-        readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
+        readAllWithHeaderAsSequence().forEach { row_raw: Map<String, String> ->
+            // Ignore header acents
+            val row = row_raw.mapKeys { it.key.unaccentUpper() }
+
             val product : Any
 
-            val name = row["Nome do produto"].let { if (it?.checkHyphen() != null) it.unaccentUpper() else throw Exception("Product name cant be null")}
-            val price_purchase  = row["Preço de compra"].let { if (it?.checkHyphen() != null) it.toFloat() else throw Exception("Product purchase price cant be null")}
-            val price_sell = row["Preço de venda"].let { if (it?.checkHyphen() != null) it.toFloat() else throw Exception("Product sell price cant be null")}
-            val quantity = row["Quantidade"].let { if (it?.checkHyphen() != null) it.toInt() else throw Exception("Product quantity cant be null")}
-            val code = row["Código"].let { if (it?.checkHyphen() != null) it.unaccentUpper() else throw Exception("Product code cant be null")}
+            val name = row["NOME DO PRODUTO"].let { if (it?.checkHyphen() != null) it.unaccentUpper() else throw Exception("Product name cant be null")}
+            val price_purchase  = row["PRECO DE COMPRA"].let { if (it?.checkHyphen() != null) it.toFloat() else throw Exception("Product purchase price cant be null")}
+            val price_sell = row["PRECO DE VENDA"].let { if (it?.checkHyphen() != null) it.toFloat() else throw Exception("Product sell price cant be null")}
+            val quantity = row["QUANTIDADE"].let { if (it?.checkHyphen() != null) it.toInt() else throw Exception("Product quantity cant be null")}
+            val code = row["CODIGO"].let { if (it?.checkHyphen() != null) it.unaccentUpper() else throw Exception("Product code cant be null")}
 
-            product = if (row["Categoria"]!!.unaccentUpper() == "ROUPA") {
+            product = if (row["CATEGORIA"]!!.unaccentUpper() == "ROUPA") {
                 read_clothes(name, price_purchase, price_sell, quantity, code, row)
-            } else if (row["Categoria"]!!.unaccentUpper() == "COLECIONAVEL") {
+            } else if (row["CATEGORIA"]!!.unaccentUpper() == "COLECIONAVEL") {
                 read_collectable(name, price_purchase, price_sell, quantity, code, row)
-            } else if (row["Categoria"]!!.unaccentUpper() == "ELETRONICO") {
+            } else if (row["CATEGORIA"]!!.unaccentUpper() == "ELETRONICO") {
                 read_electronic(name, price_purchase, price_sell, quantity, code, row)
             } else {
                 throw Exception("Category must be Clothes, Electronic or Collectable")
@@ -47,13 +50,16 @@ fun readFileCompras(file: File): MutableList<Any> {
  */
 fun readFileVendas(file: File, inventory:MutableList<Any>) : MutableList<Any> {
     csvReader().open(file) {
-        readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
+        readAllWithHeaderAsSequence().forEach { row_raw: Map<String, String> ->
+            // Ignore header acents
+            val row = row_raw.mapKeys { it.key.unaccentUpper() }
+
             val product = inventory.find {
                 it as Product
-                it.code == row["Código"]
+                it.code == row["CODIGO"]
             } as Product
 
-            product.sell_product(row["Quantidade"]!!.toInt())
+            product.sell_product(row["QUANTIDADE"]!!.toInt())
         }
     }
 
@@ -73,7 +79,9 @@ fun readFileBusca(file: File, inventory:MutableList<Any>): MutableList<List<Any>
     search_results.add(listOf("BUSCAS", "QUANTIDADE"))
 
     csvReader().open(file) {
-        readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
+        readAllWithHeaderAsSequence().forEach { row_raw: Map<String, String> ->
+            // Ignore header acents
+            val row = row_raw.mapKeys { it.key.unaccentUpper() }
             var quantity = 0
             index += 1
 
@@ -81,10 +89,10 @@ fun readFileBusca(file: File, inventory:MutableList<Any>): MutableList<List<Any>
             val busca = inventory.filter {
                 it as Product
 
-                compareCategory(row["Categoria"], it) && compareType(row["Tipo"], it) && compareSize(row["Tamanho"], it)
-                        && compareColors(row["Cor primaria"], row["Cor secundário"], it) && compareVersion(row["Versão"], it)
-                        && compareYear(row["Ano de fabricação"], it) && compareMaterial(row["Material de fabricação"], it)
-                        && compareRarity(row["Relevância"], it)
+                compareCategory(row["CATEGORIA"], it) && compareType(row["TIPO"], it) && compareSize(row["TAMANHO"], it)
+                        && compareColors(row["COR PRIMARIA"], row["COR SECUNDARIO"], it) && compareVersion(row["VERSAO"], it)
+                        && compareYear(row["ANO DE FABRICACAO"], it) && compareMaterial(row["MATERIAL DE FABRICACAO"], it)
+                        && compareRarity(row["RELEVANCIA"], it)
 
             }
 
