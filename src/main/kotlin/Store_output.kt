@@ -1,6 +1,10 @@
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 
+// Custom writer
+val writer = csvWriter {
+    outputLastLineTerminator = false
+}
 
 /**
  * Generates an [inventory] summary file (_estoque_geral.csv_) in the [output] directory
@@ -8,14 +12,14 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
  */
 fun general_inventory(inventory:MutableList<Any>, output:String) {
 
-    csvWriter().open("$output/estoque_geral.csv") {
+    writer.open("$output/estoque_geral.csv") {
         // Writes Header
         writeRow("CODIGO", "NOME", "QUANTIDADE")
 
         // Writes each of the products in the inventory
         inventory.forEach{
-            val aux = it as Product
-            writeRow(aux.code, aux.name, aux.quantity)
+            it as Product
+            writeRow(it.code, it.name, it.quantity)
         }
     }
 }
@@ -33,26 +37,26 @@ fun category_inventory(inventory:MutableList<Any>, output:String) {
 
     // Counts each category quantities
     inventory.forEach{
-        val aux = it as Product
+        it as Product
 
-        if (aux.category !in order){
-            order.add(aux.category)
+        if (it.category !in order){
+            order.add(it.category)
         }
 
-        when(aux.category) {
+        when(it.category) {
             'C' -> {
-                collectable += aux.quantity
+                collectable += it.quantity
             }
             'R' -> {
-                clothes += aux.quantity
+                clothes += it.quantity
             }
             'E' -> {
-                electronic += aux.quantity
+                electronic += it.quantity
             }
         }
     }
 
-    csvWriter().open("$output/estoque_categorias.csv") {
+    writer.open("$output/estoque_categorias.csv") {
         // Writes Header
         writeRow("CATEGORIA", "QUANTIDADE")
 
@@ -83,18 +87,27 @@ fun balance_sheet(inventory:MutableList<Any>, output:String) {
     var spending = 0f
     var sales = 0f
 
+    // counts amount spend and sold for each product
     inventory.forEach{
-        val aux = it as Product
-        val qnt = aux.balance()
+        it as Product
+        val qnt = it.balance()
 
-        spending += aux.price_purchase * qnt.first
-        sales += aux.price_sell * qnt.second
+        spending += it.price_purchase * qnt.first
+        sales += it.price_sell * qnt.second
     }
 
-    csvWriter().open("$output/balancete.csv") {
+    writer.open("$output/balancete.csv") {
         writeRows(listOf(listOf("COMPRAS", formatDecimal(spending)),
             listOf("VENDAS", formatDecimal(sales)),
             listOf("BALANCETE", formatDecimal(sales-spending))
         ))
     }
+}
+
+/**
+ * Generates an [search_results] summary file (_resultado_busca.csv_), in the [output]
+ * directory containing search index and the quantities found in the inventory
+ */
+fun products_search(search_results:MutableList<List<Any>>, output:String) {
+    writer.writeAll(search_results, "$output/resultado_busca.csv")
 }
