@@ -11,6 +11,7 @@ fun readFileCompras(file: File): MutableList<Any> {
     // List to be filled with products
     val products:MutableList<Any> = ArrayList()
 
+
     csvReader().open(file) {
         readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
             val product : Any
@@ -48,8 +49,8 @@ fun readFileVendas(file: File, inventory:MutableList<Any>) : MutableList<Any> {
     csvReader().open(file) {
         readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
             val product = inventory.find {
-                val aux = it as Product
-                aux.code == row["Código"]
+                it as Product
+                it.code == row["Código"]
             } as Product
 
             product.sell_product(row["Quantidade"]!!.toInt())
@@ -57,4 +58,45 @@ fun readFileVendas(file: File, inventory:MutableList<Any>) : MutableList<Any> {
     }
 
     return inventory
+}
+
+
+/**
+ * Reads [file] with sequential [inventory] searches.
+ *
+ * @return List of search index and products quantities
+ */
+fun readFileBusca(file: File, inventory:MutableList<Any>): MutableList<List<Any>> {
+    var index = 0
+
+    val search_results : MutableList<List<Any>> = ArrayList()
+    search_results.add(listOf("BUSCAS", "QUANTIDADE"))
+
+    csvReader().open(file) {
+        readAllWithHeaderAsSequence().forEach { row: Map<String, String> ->
+            var quantity = 0
+            index += 1
+
+            // Filter inventory based on the search
+            val busca = inventory.filter {
+                it as Product
+
+                compareCategory(row["Categoria"], it) && compareType(row["Tipo"], it) && compareSize(row["Tamanho"], it)
+                        && compareColors(row["Cor primaria"], row["Cor secundário"], it) && compareVersion(row["Versão"], it)
+                        && compareYear(row["Ano de fabricação"], it) && compareMaterial(row["Material de fabricação"], it)
+                        && compareRarity(row["Relevância"], it)
+
+            }
+
+            // Count results found
+            busca.forEach {
+                it as Product
+                quantity += it.quantity
+            }
+
+            search_results.add(listOf(index, quantity))
+        }
+    }
+
+    return  search_results
 }
