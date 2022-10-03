@@ -61,7 +61,7 @@ open class Product constructor (var name:String, var price_purchase:Float, var p
                 return "ROUPA"
             }
             'E' -> {
-                return "ELECTRONIC"
+                return "ELETRONICO"
             }
         }
         return null
