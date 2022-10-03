@@ -1,12 +1,13 @@
 # Kotlin-Project
+`Author: Sophie Dilhon - @AHalic`
+
 Mini Kotlin Project developed for the Mobile's class. This projected consisted in a store's management system. 
-Author: Sophie Dilhon - @AHalic
 
 
 ## Products representation
 The Products are represented as classes, and they can be of three different categories, each with its specials attributes. The classes representation is shown in the image below.
 
-![UML representation](image/uml.svg)
+<img src="image/uml.svg" alt="UML representation" width="650"/>
 
 
 ## Functionalities 
