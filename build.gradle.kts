@@ -56,5 +56,5 @@ tasks.jar {
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
-    destinationDirectory.set(file("./"))
+//    destinationDirectory.set(file("./"))
 }
