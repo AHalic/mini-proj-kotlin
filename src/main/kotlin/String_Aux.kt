@@ -9,7 +9,7 @@ private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 /**
  * String method to ignore word's accents and make it uppercase
  *
- *      example: Fabricação == FABRICACAO
+ *      __example__: Fabricação == FABRICACAO
  */
 fun CharSequence.unaccentUpper(): String {
     val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
