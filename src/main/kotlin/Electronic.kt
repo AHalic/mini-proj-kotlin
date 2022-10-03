@@ -13,7 +13,7 @@ import java.time.Year
  */
 class Electronic constructor (val type:TypeElectro, val version:Int, val year: Year,
                               name:String, price_purchase:Float, price_sell:Float, quantity:Int, code:String) :
-                            Product(name, price_purchase, price_sell, quantity, code, 'E') {
+                              Product(name, price_purchase, price_sell, quantity, code, 'E') {
 
     override fun toString(): String {
         return "$code - Electronic ($quantity) called $name of type $type, version $version, year $year\n"
