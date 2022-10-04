@@ -1,5 +1,7 @@
 
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 fun main(args: Array<String>){
     if (args.size != 2){
@@ -10,9 +12,16 @@ fun main(args: Array<String>){
     val input_directory = args[0]
     val output_directory = args[1]
 
-    val files = File(input_directory).walkTopDown()
+    val files = if (File(input_directory).isDirectory) File(input_directory).walkTopDown() else throw Exception("Input directory, doesnt exist!")
     val venda_file = File("$input_directory/vendas.csv")
     val compra_file = File("$input_directory/compras.csv")
+
+
+    try {
+        Files.createDirectory(Paths.get(output_directory))
+    } catch (_: java.nio.file.FileAlreadyExistsException) {
+
+    }
 
     // If vendas and compras files are not in the directory, end the program
     if (!files.contains(venda_file) || !files.contains(compra_file)){
