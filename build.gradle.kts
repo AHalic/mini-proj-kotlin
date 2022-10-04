@@ -55,6 +55,4 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-//    destinationDirectory.set(file("./"))
 }
