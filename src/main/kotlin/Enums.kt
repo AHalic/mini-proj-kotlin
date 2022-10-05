@@ -34,11 +34,11 @@ enum class TypeCollect() {
  * Enum Class representing the existing [Electronic] types
  * - VIDEO-GAME
  * - JOGO
- * - PORTATEIS
+ * - PORTATIL
  * - OUTROS
  */
 enum class TypeElectro(val type:String) {
-    video_game("VIDEO-GAME"), game("JOGO"), handheld("PORTATEIS"), other("OUTROS");
+    video_game("VIDEO-GAME"), game("JOGO"), handheld("PORTATEIL"), other("OUTROS");
 
     companion object {
         /**
