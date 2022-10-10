@@ -39,8 +39,8 @@ fun String.checkHyphen() : String? {
  */
 fun formatDecimal(value: Float) : String {
     val numberFormat = NumberFormat.getNumberInstance(Locale.US)
-    numberFormat.maximumFractionDigits = 2
-    numberFormat.minimumFractionDigits = 0
+    numberFormat.maximumFractionDigits = 1
+    numberFormat.minimumFractionDigits = 1
 
     if (numberFormat is DecimalFormat) {
         numberFormat.isDecimalSeparatorAlwaysShown = false
