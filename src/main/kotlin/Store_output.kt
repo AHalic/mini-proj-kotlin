@@ -60,6 +60,16 @@ fun category_inventory(inventory:MutableList<Any>, output:String) {
         // Writes Header
         writeRow("CATEGORIA", "QUANTIDADE")
 
+        if ('R' !in order) {
+            order.add('R')
+        }
+        if ('C' !in order) {
+            order.add('C')
+        }
+        if ('E' !in order) {
+            order.add('E')
+        }
+
         // Writes each of the products categories in the inventory
         order.forEach{
             when (it) {
